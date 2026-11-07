@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ src/
 COPY tests/ tests/
-COPY data/ data/
+RUN mkdir -p data
 
 CMD ["python", "-m", "src.train"]

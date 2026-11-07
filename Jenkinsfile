@@ -35,6 +35,9 @@ pipeline {
         }
 
         stage('Deploy to Minikube') {
+            when {
+                expression { return fileExists('/usr/local/bin/kubectl') || fileExists('/usr/bin/kubectl') }
+            }
             steps {
                 sh '''
                     kubectl apply -f k8s/deployment.yaml

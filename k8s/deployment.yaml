@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iris-mlops
+  labels:
+    app: iris-mlops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iris-mlops
+  template:
+    metadata:
+      labels:
+        app: iris-mlops
+    spec:
+      containers:
+        - name: iris-mlops
+          image: iris-mlops-pipeline:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"

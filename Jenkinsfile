@@ -11,15 +11,20 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                    python3 -m pip install --upgrade pip || pip install --upgrade pip
-                    pip3 install -r requirements.txt || pip install -r requirements.txt
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
                 '''
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'python3 -m pytest tests/ -v --tb=short || python -m pytest tests/ -v --tb=short'
+                sh '''
+                    . venv/bin/activate
+                    python -m pytest tests/ -v --tb=short
+                '''
             }
         }
 
